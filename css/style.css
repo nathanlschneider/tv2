@@ -1,0 +1,52 @@
+body {
+    background: #232323;
+    background-image: url("../img/bg_comp.jpg");
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+#logAlert{
+margin-top: 100px;
+display: none;
+}
+
+
+#sBox {
+    padding-bottom: 5px;
+    padding-top: 10px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 56px;
+    line-height: 56px;
+}
+
+.col-6,
+.col-4 {
+    color: whitesmoke;
+    text-align: center;
+    font-size: 18px;
+}
+
+.Active {
+    background: whitesmoke;
+    color: #343a40;
+    transition: all .5s;
+}
+
+.notActive {
+    color: whitesmoke;
+    background: #343a40;
+    transition: all .5s;
+}
+
