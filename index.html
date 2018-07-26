@@ -9,31 +9,36 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
         crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/auto-complete.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/solid.css" integrity="sha384-wnAC7ln+XN0UKdcPvJvtqIH3jOjs9pnKnq9qX68ImXvOGz2JuFoEiCjT8jyZQX2z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css" integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous">
+    <script>
+    var choices = [];
+    </script>
 </head>
 
 <body>
 
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="#">Incident Viewer</a>
+            <a class="navbar-brand" href="#" onclick="api.logOut()">Incident Viewer</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
                 aria-expanded="false" aria-label="Toggle navigation">
 
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-
-                <form id="sBox" class="form-inline">
-                    <input class="form-control" name="searchBox" type="text" placeholder="Search" aria-label="Search">
+                <form class="form-inline">
+                    <input id="searchBox" class="form-control" name="searchBox"  data-toggle="collapse" type="text" placeholder="Store Number..." aria-label="Search">
                 </form>
+                <button id="clearButton" class="btn btn-block btn-secondary">Clear Search</button>
             </div>
         </nav>
     </header>
 
     <main role="main" class="container">
-        <div id="logAlert" class="alert alert-secondary" role="alert">
-            You are currenly not logged in to the system!  
-            <a href="#" class="alert-link"> Please login</a> to contnue. 
+        <div id="content">
+
         </div>
     </main>
 
@@ -60,8 +65,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
         crossorigin="anonymous"></script>
     <script src="js/auto-complete.min.js"></script>
-    <script src="http://mhg-heattestlab/HEAT/Modules/HEATAPI/HEATApiClient?clientId=tv2&clientKey=aWb84BPj7mPrlUVVn0UUJPUjqzBYrBbRdjR/dp8hQro="></script>
+    <script src="http://mhg-heattestlab/HEAT/Modules/HEATAPI/HEATApiClient?clientId=ticketviewer2&clientKey=aWb84BPj7mPrlUVVn0UUJPUjqzBYrBbRdjR/dp8hQro="></script>
     <script src="js/heatcall.js"></script>
+    <script src="js/tproc.js"></script>
     <script src="js/main.js"></script>
     
 </body>
