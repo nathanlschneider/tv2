@@ -61,12 +61,13 @@ var tProc = (function () {
                 while (content.firstChild) {
                     content.removeChild(content.firstChild);
                 }
+                makeTicket(this.id);
             });
 
             outerTicket.setAttribute("id", data[i].RecId);
             outerTicket.className = "ticket";
-            outerCard.className = "card";
-            innerCard.className = "card-body";
+            outerCard.className = "card cardAlt";
+            innerCard.className = "card-body card-bodyAlt";
             h5.className = "card-title";
             h5.textContent = data[i].Category;
             h6.className = "card-subtitle";
@@ -96,8 +97,73 @@ var tProc = (function () {
         }
     };
 
+    function makeTicket(data) {
+
+        for (var i = 0; i < Object.keys(_ticketObj).length; i++) {
+
+            if (_ticketObj[i].RecId == data) {
+
+                var content = document.getElementById('content'),
+                    fragment = document.createDocumentFragment(),
+                    p1 = document.createElement('p'),
+                    p2 = document.createElement('p'),
+                    p3 = document.createElement('p'),
+                    p4 = document.createElement('p'),
+                    p5 = document.createElement('p'),
+                    p6 = document.createElement('p'),
+                    p7 = document.createElement('p'),
+                    p8 = document.createElement('p'),
+                    p9 = document.createElement('p'),
+                    outerCard = document.createElement('div'),
+                    innerCard = document.createElement('div'),
+                    h51 = document.createElement('h5'),
+                    h52 = document.createElement('h6'),
+                    p = document.createElement('p'),
+                    a = document.createElement('a');
+
+                outerCard.className = "card";
+                h51.className = "card-header";
+                h51.textContent = "Ticket #" + _ticketObj[i].IncidentNumber;
+                innerCard.className = "card-body";
+                h52.className = "card-title";
+                h52.textContent = _ticketObj[i].ProfileFullName;
+                p3.textContent = "Category: " + _ticketObj[i].Category;
+                p4.textContent = "Priority: " + _ticketObj[i].Priority;
+                p5.textContent = "Status: " + _ticketObj[i].Status;
+                p6.textContent = "Created On: " + _ticketObj[i].CreatedDateTime;
+                p7.textContent = "Tech Assigned: " + _ticketObj[i].Owner;
+                p8.textContent = app.strip(_ticketObj[i].Subject);
+                p9.textContent = _ticketObj[i].Symptom;
+                a.className = "btn btn-primary btn-block";
+                a.textContent = "Go Back";
+
+                a.addEventListener('click', function () {
+                    while (content.firstChild) {
+                        content.removeChild(content.firstChild);
+                    }
+
+                    api.callTicketData("Active");
+                })
+
+                fragment.appendChild(outerCard);
+                outerCard.appendChild(h51);
+                outerCard.appendChild(innerCard);
+                innerCard.appendChild(h52);
+                innerCard.appendChild(p3);
+                innerCard.appendChild(p4);
+                innerCard.appendChild(p5);
+                innerCard.appendChild(p6);
+                innerCard.appendChild(p7);
+                innerCard.appendChild(p8);
+                innerCard.appendChild(p9);
+                innerCard.appendChild(a);
+                content.appendChild(fragment);
+            }
+        }
+    }
+
     return {
-        makeTicket: makeTicketList,
+        makeTicketList: makeTicketList,
         createTicketObjects: createTicketObjects
     }
 })();

@@ -31,7 +31,7 @@ var app = (function () {
     }
 
     function removeTickets() {
-        document.getElementById('content').innerHTML = "";
+        document.getElementById('content').style.display = "none;"
     }
 
     //function to strip out HTML tags from a string

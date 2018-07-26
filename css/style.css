@@ -25,6 +25,10 @@ footer {
     margin-top: 65px;
 }
 
+#ticketPain {
+padding-left: 20px;
+}
+
 #logAlert {
     margin-top: 100px;
     display: none;
@@ -68,18 +72,19 @@ footer {
     transition: all .2s;
 }
 
-.card {
+.cardAlt {
     margin-bottom: 10px;
     /* border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important; */
-    border-width: 5px 5px 5px 5px;
-    border-color: #6c757d
-    
+    border-width: 3px 3px 3px 10px;
+    border-color: #6c757d;
+    transition: all .2s;
 }
 
-.card-body {
-    background: lightgray;
+.card-bodyAlt {
+    background: whitesmoke;
     max-height: 112px;
+    transition: all .2s;
 }
 
 img {
@@ -90,7 +95,7 @@ img {
     float: right;
 margin-right: -10px;
     margin-top: -110px;
- 
+    transition: all .2s;
 }
 
 .p1 {
@@ -101,4 +106,10 @@ margin-right: -10px;
 .p2 {
     /* background: #bdaf9b; */
     border-color: rgb(212, 146, 4);
+}
+
+.btn {
+    background: #6c757d;
+    border-color: #6c757d;
+    color: whitesmoke !important;
 }
