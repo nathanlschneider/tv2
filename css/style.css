@@ -56,8 +56,9 @@ footer {
 }
 
 .Active {
-    background: whitesmoke;
-    color: #343a40;
+    background: #6c757d;
+    /* color: #343a40; */
+    color: whitesmoke;
     transition: all .2s;
 }
 
@@ -72,7 +73,7 @@ footer {
     /* border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important; */
     border-width: 5px 5px 5px 5px;
-    border-color: rgb(143, 143, 143);
+    border-color: #6c757d
     
 }
 

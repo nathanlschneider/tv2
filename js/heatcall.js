@@ -2,15 +2,10 @@
 // written by nate schneider 
 
 var api = (function () {
-
-    //private
-    var ticketPayload = {},
-        namePayload = {},
-        i = 0,
-        c = 0,
-        _ticketObj = {},
-        logAlert = document.getElementById('logAlert'),
-        columnArray = ["Category",
+    var choices = [],
+        storeName = "",
+        columnArray = ["RecId",
+            "Category",
             "CreatedDateTime",
             "IncidentNumber",
             "Owner",
@@ -19,7 +14,12 @@ var api = (function () {
             "Status",
             "Subject",
             "Symptom"
-        ];
+        ],
+        searchFilter = {
+            Active: 'a7d2ddaa-6cfc-4a3a-b5a5-342f3debf344',
+            Resolved: 'efd3b94b-bc9a-4672-98ef-17b1ac102f63',
+            Closed: 'efd3b94b-bc9a-4672-98ef-17b1ac102f63'
+        };
 
     //checks to see if your logged into HEAT
     HEATAPI.Auth.getSignInfo(function (data) {
@@ -29,7 +29,7 @@ var api = (function () {
             signIn();
         }
     });
-    
+
     //calls to HEAT for employee name data
     HEATAPI.Search.SearchBusinessObject("Frs_CompositeContract_Contact", '',
         "DisplayName",
@@ -42,44 +42,40 @@ var api = (function () {
             } else {
                 console.log("Name payLoad Failure.");
             }
-            for (i = 0; i < payLoad.data.length; i++) {
+            for (var i = 0; i < payLoad.data.length; i++) {
                 choices[i] = payLoad.data[i].DisplayName;
             }
         });
 
-    //creates ticket object
-    function Ticket(Category, CreatedDateTime, IncidentNumber, Owner, Priority, ProfileFullName, Status, Subject, Symptom) {
-        this.Category = Category;
-        this.CreatedDateTime = CreatedDateTime;
-        this.IncidentNumber = IncidentNumber;
-        this.Owner = Owner;
-        this.Priority = Priority;
-        this.ProfileFullName = ProfileFullName;
-        this.Status = Status;
-        this.Subject = Subject;
-        this.Symptom = Symptom;
-    }
+    //autocomplete.js - https://goodies.pixabay.com/javascript/auto-complete/demo.html
+    new autoComplete({
+        selector: '#searchBox',
+        minChars: 2,
+        source: function (term, suggest) {
+            term = term.toLowerCase();
+            var matches = [];
+            for (i = 0; i < choices.length; i++)
+                if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
+            suggest(matches);
+        },
+        onSelect: function (e, term, item) {
+            $('.collapse').collapse('hide');
+            storeName = item.getAttribute('data-val');
+            app.active();
+        }
+    });
+
     //calls HEAT for ticket data and creates ticket objects
-    function callTicketData(store, searchFilter) {
-        _ticketObj = {};
+    function callTicketData(filter) {
         HEATAPI.Search.SearchBusinessObject("Incident",
-            searchFilter,
+            searchFilter[filter],
             columnArray,
             "LastModDateTime",
             "DESC",
             5000,
             function (payLoad) {
-                var i = 0;
                 if (payLoad.success) {
-                    console.log("Ticket Data payLoad Receieved");
-                    for (c = 0; c < payLoad.data.length; c++) {
-                        if (payLoad.data[c].ProfileFullName === store) {
-                            _ticketObj[i] = new Ticket(payLoad.data[c].Category, payLoad.data[c].CreatedDateTime, payLoad.data[c].IncidentNumber,
-                                payLoad.data[c].Owner, payLoad.data[c].Priority, payLoad.data[c].ProfileFullName, payLoad.data[c].Status, payLoad.data[c].Symptom);
-                            i++;
-                        };
-                    }
-                    tProc.makeTicket(_ticketObj);
+                    tProc.createTicketObjects(storeName, payLoad);
                 } else {
                     console.log("Ticket payLoad Failure.");
                 }
@@ -109,10 +105,10 @@ var api = (function () {
 
     //public
     return {
-        callTicketData: callTicketData,  //function to fetch ticket data from HEAT
-        name: getNameData,               //function to fetch employee name data from HEAT
-        data: getTicketData,             //function to use ticketObj data
-        logOut: logOut,                  //function to log out of app
-        signIn: signIn                   //function to sign into app
+        callTicketData: callTicketData, //function to fetch ticket data from HEAT
+        name: getNameData, //function to fetch employee name data from HEAT
+        data: getTicketData, //function to use ticketObj data
+        logOut: logOut, //function to log out of app
+        signIn: signIn //function to sign into app
     }
 })();
