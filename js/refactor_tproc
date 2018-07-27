@@ -1,0 +1,60 @@
+
+//card constructor
+function Card(Category, Priority, Subject) {
+    this.Category = Category;
+    this.Priority = Priority;
+    this.Subject = Subject;
+    this.create = function () {
+        var contents = document.getElementById('content'),
+            div1 = document.createElement('div'),
+            div2 = document.createElement('div'),
+            div3 = document.createElement('div');
+        div1.innerText = Category;
+        div2.innerText = Priority;
+        div3.innerText = Subject;
+        contents.appendChild(div1);
+        contents.appendChild(div2);
+        contents.appendChild(div3);
+    }
+}
+
+//ticker constrcutor
+function Ticket(RecId, CreatedDateTime, IncidentNumber, Owner, ProfileFullName, Status, Symptom) {
+    this.RecId = RecId;
+    this.CreatedDateTime = CreatedDateTime;
+    this.IncidentNumber = IncidentNumber;
+    this.Owner = Owner;
+    this.ProfileFullName = ProfileFullName;
+    this.Status = Status;
+    this.Symptom = Symptom;
+    this.create = function () {
+        var contents = document.getElementById('content'),
+            div4 = document.createElement('div'),
+            div5 = document.createElement('div'),
+            div6 = document.createElement('div'),
+            div7 = document.createElement('div'),
+            div8 = document.createElement('div'),
+            div9 = document.createElement('div'),
+            div10 = document.createElement('div');
+        div4.innerText = RecId;
+        div5.innerText = CreatedDateTime;
+        div6.innerText = IncidentNumber;
+        div7.innerText = Owner;
+        div8.innerText = ProfileFullName;
+        div9.innerText = Status;
+        div10.innerText = Symptom;
+        contents.appendChild(div4);
+        contents.appendChild(div5);
+        contents.appendChild(div6);
+        contents.appendChild(div7);
+        contents.appendChild(div8);
+        contents.appendChild(div9);
+        contents.appendChild(div10);
+    }
+}
+
+var testCard = new Card("Hardware", "1", "Computer won't turn on.");
+var testTicket = new Ticket("3939eke903", "9/12/1979", "21", "Bill Tert", "Wendy's #002", "Active", "Hard down on all the terminals");
+
+//testCard.create();
+//testTicket.create.call(testCard.create());
