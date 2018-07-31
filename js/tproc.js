@@ -163,6 +163,7 @@ var tProc = (function () {
     }
 
     return {
+        purgeCurrentData: purgeCurrentData,
         makeTicketList: makeTicketList,
         createTicketObjects: createTicketObjects
     }

@@ -17,12 +17,12 @@
 
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="#">Incident Viewer</a>
+            <a class="navbar-brand" href="#" onclick="api.logOut()">Incident Viewer</a>
+            <i class="fsBtn fas fa-expand fa-2x"></i>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
-                aria-expanded="false" aria-label="Toggle navigation">
-
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <form class="form-inline">
                     <input id="searchBox" class="form-control" name="searchBox"  data-toggle="collapse" type="text" placeholder="Store Number..." aria-label="Search">
@@ -39,17 +39,12 @@
     </main>
 
     <footer class="footer bg-dark">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-4">
-                    Active
-                </div>
-                <div class="col-4">
-                    Resolved
-                </div>
-                <div class="col-4">
-                    Closed
-                </div>
+        <div class="row">
+    <div class="indicator col-6"></div>
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center text-center no-gutters">
+                <div class="col-6 filterBtn">Active</div>
+                <div class="col-6 filterBtn">Resolved</div>
             </div>
         </div>
     </footer>
@@ -61,10 +56,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
         crossorigin="anonymous"></script>
     <script src="js/auto-complete.min.js"></script>
-    <script src="http://mhg-heattestlab/HEAT/Modules/HEATAPI/HEATApiClient?clientId=ticketviewer2&clientKey=aWb84BPj7mPrlUVVn0UUJPUjqzBYrBbRdjR/dp8hQro="></script>
-    <script src="js/heatcall.js"></script>
-    <script src="js/tproc.js"></script>
+    <script src="https://portal.mhgi.net/HEAT/Modules/HEATAPI/HEATApiClient?clientId=ticketviewer&clientKey=34BN8LosBQEq57umylA8rFESUZG9acYiBenbNTomdcw="></script>
+    <!-- <script src="js/heatcall.js"></script> -->
+    <!-- <script src="js/refactor_tproc.js"></script> -->
     <script src="js/main.js"></script>
+    <script src="js/fullscreen.js"></script>
     
 </body>
 

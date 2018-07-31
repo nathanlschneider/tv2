@@ -3,35 +3,37 @@
 
 var app = (function () {
 
-    var statusSelector = document.querySelectorAll('.col-4'),
+    var statusSelector = document.querySelectorAll('.filterBtn'),
+        indicator = document.querySelector('.indicator'),
         clearButton = document.getElementById('clearButton'),
         searchBox = document.getElementById('searchBox'),
+        fsButton = document.querySelector('.fsBtn');
         buttonAction = "";
 
     clearButton.addEventListener('click', function () {
         searchBox.value = "";
-        removeTickets();
     });
+
+    fsButton.addEventListener('click', function(){
+        fsButton.classList.toggle('fsAnimate');
+       fullscreen.toggle();
+        
+    })
     
     for (var i = 0; i < statusSelector.length; i++) {
         statusSelector[i].addEventListener('click', function (event) {
-            resetSelectors();
-            removeTickets();
-            this.classList.remove("notActive");
-            this.classList.add("Active");
-            buttonAction = strip(event.target.textContent).trim();
-            api.callTicketData(buttonAction);
+            if (this.innerText == "Active") {
+               indicator.classList.add('animateActive');
+               indicator.classList.remove('animateResolved');
+              } else {
+                indicator.classList.add('animateResolved');
+                indicator.classList.remove('animateActive');
+              }
         })
     }
     
-    function resetSelectors() {
-        for (var i = 0; i < statusSelector.length; i++) {
-            statusSelector[i].classList.add("notActive");
-        }
-    }
-
     function removeTickets() {
-        document.getElementById('content').style.display = "none;"
+       document.getElementById('content').style.display = "none";
     }
 
     //function to strip out HTML tags from a string

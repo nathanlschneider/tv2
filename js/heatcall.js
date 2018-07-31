@@ -17,8 +17,7 @@ var api = (function () {
         ],
         searchFilter = {
             Active: 'a7d2ddaa-6cfc-4a3a-b5a5-342f3debf344',
-            Resolved: 'efd3b94b-bc9a-4672-98ef-17b1ac102f63',
-            Closed: 'efd3b94b-bc9a-4672-98ef-17b1ac102f63'
+            Resolved: 'efd3b94b-bc9a-4672-98ef-17b1ac102f63'
         };
 
     //checks to see if your logged into HEAT
