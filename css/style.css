@@ -1,132 +1,194 @@
 body {
-    background: #232323;
-    margin-bottom: 60px;
-    background-image: url("../img/bg_comp.jpg");
-    background-size: cover;
-}
-
-html {
-    position: relative;
-    min-height: 100%;
-}
-
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-    /* Set the fixed height of the footer here */
-    line-height: 60px;
-    /* Vertically center the text there */
-    background-color: #f5f5f5;
-}
-
-.fsBtn {
-    color: #606060;
-    line-height: 40px;
-    transition-duration: .3s;
-    margin-left: 60px;
-}
-
-.fsAnimate {
-    transform: rotate(90deg);
-    color: darkgray;
-}
-
-.indicator {
-    background-color: lightgrey;
-    height: 5px;
-    transition-duration: .2s;
-    transition-delay: 100ms;
-    
-  }
-.filterBtn {
-    line-height: 45px;
-}  
-#content {
-    margin-top: 65px;
-}
-
-#ticketPain {
-padding-left: 20px;
-}
-
-#logAlert {
-    margin-top: 100px;
     display: none;
 }
 
-#searchBox {
-    margin-top: 20px;
-    margin-bottom: 10px;
+html {
+    background: #232323;
 }
 
-#clearButton {
-    margin-bottom: 10px;
-}
+@media only screen and (max-width: 1600px) {
+    body {
+        background: #00000000;
+        margin-bottom: 60px;
+        /* background-image: url("../img/bg_comp.jpg");
+    background-size: cover; */
+        display: block;
+    }
+    .toolbox {
+        padding-top: 5px;
+        text-align: center;
+        height: 20px;
+        width: 110px;
+        background-color: white;
+        opacity: .3;
+        z-index: 999;
+        position: absolute;
+        display: block;
+        border-radius: 10px;
+        margin-left: 10px;
+        top: 70px;
+        left: -100px;
+        transition: all .3s ease-in-out;
+    }
+    .toolbox:hover {
+        transform: translateX(100px);
+        height: 110px;
+        opacity: .9;
+    }
+    html {
+        position: relative;
+        background-image: url("../img/bg_comp.jpg");
+        background-size: cover;
+        min-height: 100%;
+        display: block;
+    }
+    footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 60px;
+        /* Set the fixed height of the footer here */
+        line-height: 60px;
+        /* Vertically center the text there */
+        background-color: #f5f5f5;
+    }
+    img {
+        /* position: absolute; */
+        opacity: 0.2;
+        width: 110px;
+        z-index: -1;
+        float: right;
+        margin-right: -10px;
+        margin-top: -110px;
+        transition: all .2s;
+    }
+    iframe {
+        height: 500px;
+        width: 100%;
+        border: none;
+        /* display: none; */
+    }
+    .show {
+        display: block;
+    }
+    .hide {
+        display: none;
+    }
 
-.animateActive {
-    transform: translateX(0%);
-}
-
-.animateResolved {
-    transform: translateX(100%);
-}
-
-.footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 56px;
-    line-height: 56px;
-}
-
-.col-6,
-.col-4,
-.col-5 {
-    color: whitesmoke;
-    display: inline;
-}
-
-.cardAlt {
-    margin-bottom: 10px;
-    /* border-top-left-radius: 0 !important;
+    .loader {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        border-left: 5px white solid;
+        border-top: 5px white solid;
+        border-right: 5px white solid;
+        border-bottom: 5px white dashed;
+        border-radius: 100%;
+        z-index: 9999;
+        -webkit-animation: spin 1s linear infinite;
+        -moz-animation: spin 1s linear infinite;
+        animation: spin 1s linear infinite;
+    }
+    @-moz-keyframes spin {
+        100% {
+            -moz-transform: rotate(360deg);
+        }
+    }
+    @-webkit-keyframes spin {
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+    @keyframes spin {
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+    .loader:hover {
+        transform: rotate(360deg);
+    }
+    .fsButton {
+        width: 38px;
+        height: 38px;
+        background-image: url('../img/arror-out.png');
+        background-size: 38px 38px;
+        color: #606060;
+        line-height: 40px;
+        transition-duration: .3s;
+        margin-left: 15px;
+        border-radius: 0%;
+    }
+    .fsAnimate {
+        transform: rotate(180deg);
+        color: darkgray;
+    }
+    .indicator {
+        background-color: lightgrey;
+        height: 10px;
+        transition-duration: .2s;
+        transform: translateY(50px);
+    }
+    .animateActive {
+        transform: translateX(0%);
+        transform: translateY(50px);
+    }
+    .animateResolved {
+        transform: translateY(50px);
+        /* transform: translateX(100%); */
+    }
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 40px;
+        line-height: 56px;
+    }
+    .col-6,
+    .col-4,
+    .col-5 {
+        color: whitesmoke;
+        display: inline;
+    }
+    .card-alt {
+        margin-bottom: 10px;
+        /* border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important; */
-    border-width: 3px 3px 3px 10px;
-    border-color: #6c757d;
-    transition: all .2s;
-}
-
-.card-bodyAlt {
-    background: whitesmoke;
-    max-height: 112px;
-    transition: all .2s;
-}
-
-img {
-    /* position: absolute; */
-    opacity: 0.2;
-    width: 110px;
-    z-index: -1;
-    float: right;
-margin-right: -10px;
-    margin-top: -110px;
-    transition: all .2s;
-}
-
-.p1 {
-    /* background: rgb(189, 160, 160) */
-    border-color: rgb(182, 0, 0);
-}
-
-.p2 {
-    /* background: #bdaf9b; */
-    border-color: rgb(212, 146, 4);
-}
-
-.btn {
-    background: #6c757d;
-    border-color: #6c757d;
-    color: whitesmoke !important;
+        border-width: 3px 3px 3px 10px;
+        border-color: #6c757d;
+        transition: all .2s;
+    }
+    .card-body-alt {
+        background: lightgray;
+        max-height: 112px;
+        transition: all .2s;
+    }
+    .p1 {
+        /* background: rgb(189, 160, 160) */
+        border-color: rgb(182, 0, 0);
+    }
+    .p2 {
+        /* background: #bdaf9b; */
+        border-color: rgb(212, 146, 4);
+    }
+    .btn {
+        background: #6c757d;
+        border-color: #6c757d;
+        color: whitesmoke !important;
+    }
+    #content {
+        margin-top: 65px;
+    }
+    #clearButton {
+        border-top-right-radius: .25rem;
+        border-bottom-right-radius: .25rem;
+    }
+    #ticketPain {
+        padding-left: 20px;
+    }
+    #logAlert {
+        margin-top: 100px;
+        display: none;
+    }
 }

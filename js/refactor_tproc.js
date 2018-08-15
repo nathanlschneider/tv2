@@ -5,7 +5,6 @@ var tProc = (function () {
 
     function createTicketObjects(store, payLoad) {
         var i = 0;
-
         for (var c = 0; c < payLoad.data.length; c++) {
             if (payLoad.data[c].ProfileFullName === store) {
                 _ticketObj[i] = new Ticket(
@@ -23,7 +22,7 @@ var tProc = (function () {
             };
         }
         if (i === 0) {
-            alert("There are no tickets for store");
+            alert("There are no tickets of this type for " + store);
         };
         showCurrentCards();
     }
@@ -40,40 +39,99 @@ var tProc = (function () {
         this.Status = Status;
         this.Subject = Subject;
         this.Symptom = Symptom;
-        this.createTicket = function () {
-            var div4 = document.createElement('div'),
-                div5 = document.createElement('div'),
-                div6 = document.createElement('div'),
-                div7 = document.createElement('div'),
-                div8 = document.createElement('div'),
-                div9 = document.createElement('div'),
-                div10 = document.createElement('div');
-            div4.innerText = RecId;
-            div5.innerText = CreatedDateTime;
-            div6.innerText = IncidentNumber;
-            div7.innerText = Owner;
-            div8.innerText = ProfileFullName;
-            div9.innerText = Status;
-            div10.innerText = Symptom;
-            contents.appendChild(div4);
-            contents.appendChild(div5);
-            contents.appendChild(div6);
-            contents.appendChild(div7);
-            contents.appendChild(div8);
-            contents.appendChild(div9);
-            contents.appendChild(div10);
+        this.createTicket = function (RecId) {
+            p1 = document.createElement('p'),
+                p2 = document.createElement('p'),
+                p3 = document.createElement('p'),
+                p4 = document.createElement('p'),
+                p5 = document.createElement('p'),
+                p6 = document.createElement('p'),
+                p7 = document.createElement('p'),
+                p8 = document.createElement('p'),
+                p9 = document.createElement('p'),
+                outerCard = document.createElement('div'),
+                innerCard = document.createElement('div'),
+                h51 = document.createElement('h5'),
+                h52 = document.createElement('h6'),
+                p = document.createElement('p'),
+                a = document.createElement('a');
+
+            outerCard.className = "card";
+            h51.className = "card-header";
+            h51.textContent = "Ticket #" + IncidentNumber;
+            innerCard.className = "card-body";
+            h52.className = "card-title";
+            h52.textContent = ProfileFullName;
+            p3.textContent = "Category: " + Category;
+            p4.textContent = "Priority: " + Priority;
+            p5.textContent = "Status: " + Status;
+            p6.textContent = "Created On: " + CreatedDateTime;
+            p7.textContent = "Tech Assigned: " + Owner;
+            p8.textContent = "Issue: " + app.strip(Subject);
+            p9.textContent = "Description: " + app.strip(Symptom);
+            a.className = "btn btn-primary btn-block";
+            a.textContent = "Go Back";
+            a.addEventListener('click', function (event) {
+                // console.log(app.lastClicked());
+                if (app.lastClicked() === "Active") {
+                    showCurrentCards("Active");
+                } else {
+                    showCurrentCards("Resolved");
+                }
+
+            })
+            contents.appendChild(outerCard);
+            outerCard.appendChild(h51);
+            outerCard.appendChild(innerCard);
+            innerCard.appendChild(h52);
+            innerCard.appendChild(p3);
+            innerCard.appendChild(p4);
+            innerCard.appendChild(p5);
+            innerCard.appendChild(p6);
+            innerCard.appendChild(p7);
+            innerCard.appendChild(p8);
+            innerCard.appendChild(p9);
+            innerCard.appendChild(a);
         }
         this.createCard = function () {
-            var div1 = document.createElement('div'),
-                div2 = document.createElement('div'),
-                div3 = document.createElement('div');
-            div1.innerText = Category;
-            div2.innerText = Priority;
-            div3.innerText = Subject;
-            contents.appendChild(div1);
-            contents.appendChild(div2);
-            contents.appendChild(div3);
+            var card = document.createElement('div'),
+                body = document.createElement('div'),
+                title = document.createElement('h5'),
+                subTitle = document.createElement('h6'),
+                content = document.createElement('p'),
+                p1Img = document.createElement('img'),
+                p2Img = document.createElement('img');
 
+            card.className = "card card-alt";
+            card.setAttribute("id", RecId);
+            body.className = "card-body card-body-alt";
+            title.className = "card-title";
+            title.textContent = Category;
+            subTitle.className = "card-subtitle";
+            subTitle.textContent = Subject;
+            content.className = "card-text";
+            content.textContent = app.ts(app.strip(Symptom));
+            p1Img.src = "img/p1.png";
+            p2Img.src = "img/p2.png";
+            contents.appendChild(card);
+            card.appendChild(body);
+            body.appendChild(title);
+            body.appendChild(subTitle);
+            body.appendChild(content);
+            if (Priority == 0) {
+                card.classList.add('p1');
+                body.appendChild(p1Img);
+            }
+
+            if (Priority == 0) {
+                card.classList.add('p2');
+                body.appendChild(p2Img);
+            }
+
+            body.addEventListener('click', function (event) {
+
+                tProc.showCurrentTickets(event.path[2].id);
+            });
         }
     }
 
@@ -85,16 +143,41 @@ var tProc = (function () {
     }
 
     function clearContents() {
-        contents.innerHTML = "";
-    }
-
-    function showCurrentCards() {
-        for (let i = 0; i < Object.keys(_ticketObj).length; i++) {
-            _ticketObj[i].createCard();
+        // contents.innerHTML = "";
+        while (contents.firstChild) {
+            contents.removeChild(contents.firstChild);
         }
     }
 
-    function showCurrentTickets() {
+    function showCurrentCards(filter) {
+        clearContents();
+
+        if (filter === "Resolved") {
+            for (let i = 0; i < Object.keys(_ticketObj).length; i++) {
+                if (_ticketObj[i].Status === "Resolved") {
+                    _ticketObj[i].createCard();
+                }
+            }
+        } else {
+            for (let i = 0; i < Object.keys(_ticketObj).length; i++) {
+                if (_ticketObj[i].Status !== "Resolved") {
+                    _ticketObj[i].createCard();
+                }
+            }
+        }
+    }
+
+    function showCurrentTickets(RecId) {
+        console.log(RecId);
+        if (RecId != "content") {
+            clearContents();
+            for (let i = 0; i < Object.keys(_ticketObj).length; i++) {
+                if (_ticketObj[i].RecId === RecId) {
+                    // console.log(RecId);
+                    _ticketObj[i].createTicket();
+                }
+            }
+        }
     }
 
     return {
@@ -104,10 +187,4 @@ var tProc = (function () {
         showCurrentCards: showCurrentCards,
         showCurrentTickets: showCurrentTickets
     }
-})()
-
-//var testCard = new Card("Hardware", "1", "Computer won't turn on.");
-//var testTicket = new Ticket("3939eke903", "9/12/1979", "21", "Bill Tert", "Wendy's #002", "Active", "Hard down on all the terminals");
-
-//testCard.create();
-//testTicket.create.call(testCard.create());
+})();

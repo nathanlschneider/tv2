@@ -138,12 +138,10 @@ var tProc = (function () {
                 a.textContent = "Go Back";
 
                 a.addEventListener('click', function () {
-                    while (content.firstChild) {
-                        content.removeChild(content.firstChild);
+                   
                     }
 
-                    api.callTicketData("Active");
-                })
+                   
 
                 fragment.appendChild(outerCard);
                 outerCard.appendChild(h51);

@@ -2,6 +2,11 @@
 // written by nate schneider 
 
 var api = (function () {
+
+    var sessionTimer = setInterval(function(){
+        logOut();
+    },1200 * 1000);
+
     var choices = [],
         storeName = "",
         columnArray = ["RecId",
@@ -16,30 +21,26 @@ var api = (function () {
             "Symptom"
         ],
         searchFilter = {
-            Active: 'a7d2ddaa-6cfc-4a3a-b5a5-342f3debf344',
-            Resolved: 'efd3b94b-bc9a-4672-98ef-17b1ac102f63'
+            Active: 'ee3b3497-dea5-4a1a-ba97-664504969b51',
+            Resolved: '9658ca96-70bd-44f4-b8f4-801d3bb3b966',
+            All: '5b58910a-f400-400b-b12f-7c6ad065e9a2'
         };
 
-    //checks to see if your logged into HEAT
-    HEATAPI.Auth.getSignInfo(function (data) {
-        if (!data.authenticated) {
-            logAlert.style.display = "block";
-        } else {
-            signIn();
-        }
-    });
-
-    //calls to HEAT for employee name data
-    HEATAPI.Search.SearchBusinessObject("Frs_CompositeContract_Contact", '',
+        HEATAPI.Search.SearchBusinessObject("Frs_CompositeContract_Contact", '',
         "DisplayName",
         "LastModDateTime",
         "DESC",
         500,
         function (payLoad) {
             if (payLoad.success) {
-                console.log("Name payLoad Receieved");
+                if (!sessionStorage) {
+                    signIn();
+                }
+                // console.log("Name payLoad Receieved");
+                var iframe = document.getElementById('authFrame');
+                iframe.classList.remove('show');
             } else {
-                console.log("Name payLoad Failure.");
+                // console.log("Name payLoad Failure.");
             }
             for (var i = 0; i < payLoad.data.length; i++) {
                 choices[i] = payLoad.data[i].DisplayName;
@@ -58,39 +59,43 @@ var api = (function () {
             suggest(matches);
         },
         onSelect: function (e, term, item) {
-            $('.collapse').collapse('hide');
             storeName = item.getAttribute('data-val');
-            app.active();
+            tProc.purgeContents();
+            callTicketData("All");
+
         }
     });
 
     //calls HEAT for ticket data and creates ticket objects
     function callTicketData(filter) {
+        checkSession();
         HEATAPI.Search.SearchBusinessObject("Incident",
-            searchFilter[filter],
+            // searchFilter[filter],
+            '5b58910a-f400-400b-b12f-7c6ad065e9a2',
             columnArray,
             "LastModDateTime",
             "DESC",
-            5000,
+            500,
             function (payLoad) {
                 if (payLoad.success) {
                     tProc.createTicketObjects(storeName, payLoad);
                 } else {
-                    console.log("Ticket payLoad Failure.");
+                    // console.log("Ticket payLoad Failure.");
                 }
             })
     }
 
     function logOut() {
         HEATAPI.Auth.signOut(function (data) {
-            console.log(data);
+            // console.log(data);
             location.reload();
         });
     }
 
     function signIn() {
         HEATAPI.Auth.signIn(function (data) {
-            console.log(data);
+            sessionStorage = data.expires_in;
+            //location.reload();
         });
     }
 
@@ -100,6 +105,10 @@ var api = (function () {
 
     function getTicketData() { //returns private function
         return _ticketObj;
+    }
+
+    function checkSession() {
+       signIn();
     }
 
     //public

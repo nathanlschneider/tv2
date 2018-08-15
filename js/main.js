@@ -7,33 +7,39 @@ var app = (function () {
         indicator = document.querySelector('.indicator'),
         clearButton = document.getElementById('clearButton'),
         searchBox = document.getElementById('searchBox'),
-        fsButton = document.querySelector('.fsBtn');
-        buttonAction = "";
+        fsButton = document.querySelector('.fsButton'),
+        lastClickedButton = "Active";
 
     clearButton.addEventListener('click', function () {
         searchBox.value = "";
+        tProc.purgeContents();
+        active();
     });
 
-    fsButton.addEventListener('click', function(){
+    fsButton.addEventListener('click', function () {
         fsButton.classList.toggle('fsAnimate');
-       fullscreen.toggle();
-        
+        fullscreen.toggle();
     })
-    
+
     for (var i = 0; i < statusSelector.length; i++) {
         statusSelector[i].addEventListener('click', function (event) {
             if (this.innerText == "Active") {
-               indicator.classList.add('animateActive');
-               indicator.classList.remove('animateResolved');
-              } else {
-                indicator.classList.add('animateResolved');
-                indicator.classList.remove('animateActive');
-              }
+                lastClickedButton = "Active";
+                tProc.showCurrentCards("Active");
+                // indicator.classList.add('animateActive');
+                // indicator.classList.remove('animateResolved');
+
+            } else {
+                lastClickedButton = "Resolved";
+                tProc.showCurrentCards("Resolved");
+                // indicator.classList.add('animateResolved');
+                // indicator.classList.remove('animateActive');
+            }
         })
     }
-    
+
     function removeTickets() {
-       document.getElementById('content').style.display = "none";
+        document.getElementById('content').style.display = "none";
     }
 
     //function to strip out HTML tags from a string
@@ -52,14 +58,23 @@ var app = (function () {
         return trimmedString;
     }
 
-    function active(){
+    function active() {
         statusSelector[0].click();
+    }
+
+    function getLastClickedButton() {
+        return lastClickedButton;
+    }
+
+    function frameInfo() {
+        // console.log(labels);
     }
 
     return {
         strip: strip,
         ts: ts,
-        active: active
+        active: active,
+        lastClicked: getLastClickedButton,
+        frameInfo: frameInfo
     };
-
 })();
