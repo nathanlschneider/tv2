@@ -1,5 +1,6 @@
 var fullscreen = (function () {
     var toggle = function () {
+        console.log("fscall");
         //check to see if browser supports fullscreen mode
         var fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.webkitFullscreenEnabled;
         //checks to see if anything is in fullscreen mode

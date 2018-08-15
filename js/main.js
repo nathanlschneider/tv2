@@ -8,7 +8,13 @@ var app = (function () {
         clearButton = document.getElementById('clearButton'),
         searchBox = document.getElementById('searchBox'),
         fsButton = document.querySelector('.fsButton'),
+        addHomeBtn = document.querySelector('.addHomeImg'),
         lastClickedButton = "Active";
+
+
+    addHomeBtn.addEventListener('click', function () {
+
+    });
 
     clearButton.addEventListener('click', function () {
         searchBox.value = "";

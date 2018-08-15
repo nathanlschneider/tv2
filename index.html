@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
@@ -18,7 +18,7 @@
     <body id="bodyId">
 
         <header>
-            <nav class="navbar navbar-dark fixed-top bg-dark">
+            <nav class="navbar navbar-dark fixed-top bg-dark hide">
                 <div class="input-group mb-1">
                     <input type="text" id="searchBox" class="form-control" placeholder="Store Number" aria-label="Store Number" aria-describedby="clearButton">
                     <div class="input-group-append">
@@ -29,15 +29,23 @@
                 </div>
             </nav>
         </header>
-
-        <main role="main" class="container">
+        <div class="addHomeInstructions"></div>
+        <h1 class="preTitle">Ticket Viewer</h1>
+        <main class="container">
             <div id="content">
                 <iframe name="authFrame" id="authFrame"></iframe>
 
             </div>
         </main>
 
-        <footer class="footer bg-dark">
+        <div class="addhome">
+                <img class="addHomeImg" src="img/addhome.png" alt="Add to Home Screen">
+                <span class="addHomeText">Add to Home Screen</span>
+            </div>
+
+      
+
+        <footer class="footer bg-dark hide">
             <div class="row">
                 <!-- <div class="indicator col-6"></div> -->
                 <div class="container">
@@ -46,8 +54,8 @@
                         <div class="btn btn-secondary col-6 filterBtn">Resolved</div>
                     </div>
                 </div>
+                </div>
         </footer>
-
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
@@ -58,8 +66,8 @@
         <script src="js/heatapi.js"></script>
         <script src="js/heatcall.js"></script>
         <script src="js/refactor_tproc.js"></script>
-        <script src="js/main.js"></script>
         <script src="js/fullscreen.js"></script>
+        <script src="js/main.js"></script>
         <script src="js/toolbox.js"></script>
 
     </body>

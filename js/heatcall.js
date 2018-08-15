@@ -3,9 +3,9 @@
 
 var api = (function () {
 
-    var sessionTimer = setInterval(function(){
+    var sessionTimer = setInterval(function () {
         logOut();
-    },1200 * 1000);
+    }, 1200 * 1000);
 
     var choices = [],
         storeName = "",
@@ -26,7 +26,7 @@ var api = (function () {
             All: '5b58910a-f400-400b-b12f-7c6ad065e9a2'
         };
 
-        HEATAPI.Search.SearchBusinessObject("Frs_CompositeContract_Contact", '',
+    HEATAPI.Search.SearchBusinessObject("Frs_CompositeContract_Contact", '',
         "DisplayName",
         "LastModDateTime",
         "DESC",
@@ -38,7 +38,14 @@ var api = (function () {
                 }
                 // console.log("Name payLoad Receieved");
                 var iframe = document.getElementById('authFrame');
+                var hidden = document.querySelectorAll('.hide');
+                var pre = document.querySelector('.preTitle');
+                pre.remove();
                 iframe.classList.remove('show');
+                for (let i = 0; i < hidden.length; i++) {
+                    hidden[i].classList.remove('hide');
+                }
+
             } else {
                 // console.log("Name payLoad Failure.");
             }
@@ -75,7 +82,7 @@ var api = (function () {
             columnArray,
             "LastModDateTime",
             "DESC",
-            500,
+            1000,
             function (payLoad) {
                 if (payLoad.success) {
                     tProc.createTicketObjects(storeName, payLoad);
@@ -108,7 +115,7 @@ var api = (function () {
     }
 
     function checkSession() {
-       signIn();
+        signIn();
     }
 
     //public

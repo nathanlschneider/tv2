@@ -22,7 +22,7 @@ var tProc = (function () {
             };
         }
         if (i === 0) {
-            alert("There are no tickets of this type for " + store);
+            // alert("There are no tickets of this type for the last 30 days" + store);
         };
         showCurrentCards();
     }
@@ -107,23 +107,26 @@ var tProc = (function () {
             body.className = "card-body card-body-alt";
             title.className = "card-title";
             title.textContent = Category;
-            subTitle.className = "card-subtitle";
-            subTitle.textContent = Subject;
-            content.className = "card-text";
-            content.textContent = app.ts(app.strip(Symptom));
+            subTitle.className = "card-subtitle capletter";
+            subTitle.textContent = app.ts(app.strip(Subject.toLowerCase()));
+            content.className = "card-text capletter";
+            content.textContent = app.ts(app.strip(Symptom.toLowerCase()));
             p1Img.src = "img/p1.png";
             p2Img.src = "img/p2.png";
+            p1img.classList = "alertImg";
+            p2img.classList = "alertImg";
+
             contents.appendChild(card);
             card.appendChild(body);
             body.appendChild(title);
             body.appendChild(subTitle);
             body.appendChild(content);
-            if (Priority == 0) {
+            if (Priority == 1) {
                 card.classList.add('p1');
                 body.appendChild(p1Img);
             }
 
-            if (Priority == 0) {
+            if (Priority == 2) {
                 card.classList.add('p2');
                 body.appendChild(p2Img);
             }
@@ -154,13 +157,13 @@ var tProc = (function () {
 
         if (filter === "Resolved") {
             for (let i = 0; i < Object.keys(_ticketObj).length; i++) {
-                if (_ticketObj[i].Status === "Resolved") {
+                if (_ticketObj[i].Status === "Resolved" || _ticketObj[i].Status === "Closed") {
                     _ticketObj[i].createCard();
                 }
             }
         } else {
             for (let i = 0; i < Object.keys(_ticketObj).length; i++) {
-                if (_ticketObj[i].Status !== "Resolved") {
+                if (_ticketObj[i].Status !== "Resolved" && _ticketObj[i].Status !== "Closed") {
                     _ticketObj[i].createCard();
                 }
             }
